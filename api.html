@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <div id="test"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
         // Query URL variables
@@ -26,7 +27,18 @@
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
+            console.log(response.response);
+            for (i = 0; i < response.response.docs.length; i++) {
+                var articleDiv = $("<div>");
+                var headlineDiv = $("<div>");
+                headlineDiv.text(response.response.docs[i].headline.main);
+                var abstractDiv = $("<div>");
+                abstractDiv.text(response.response.docs[i].abstract);
+                articleDiv.append(headlineDiv);
+                articleDiv.append(abstractDiv);
+                $("#test").append(articleDiv);
+                console.log(headlineDiv);
+            }
         });
 
 
