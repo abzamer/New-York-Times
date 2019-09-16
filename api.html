@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>API</title>
 </head>
+
 <body>
-    uytfkyfku
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        // Query URL variables
+        var APIKey = "api-key=8ZB2FAXLtCw1ZvLQAtGy75wrJZZz37GU";
+        var searchTerm = "cancer";
+
+        var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + searchTerm + "&" + APIKey;
+
+        // Filter variables
+        var resultNum = 1;
+        var minYear = 2018;
+        var maxYear = 2019;
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
+        });
+
+
+    </script>
 </body>
+
 </html>
