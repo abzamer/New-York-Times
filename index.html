@@ -1,12 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Index</title>
+    <title>NYT</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>New York Times Search</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Search Parameters</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Search Term:</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Number of Records to Retrieve:</label>
+                        <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                            <option selected>Choose...</option>
+                            <option value="1">One</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Start Year (Optional):</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">End Year (Optional):</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                    </div>
+                </form>
+            </div>
+            <li class="fa fa-search">Search</li>
+            <li class="fa fa-trash">Trash</li>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12" id="article">
+                <h2>This will hold Top Articles</h2>
+            </div>
+        </div>
+    </div>
+
+
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        // Query URL variables
+        var APIKey = "api-key=8ZB2FAXLtCw1ZvLQAtGy75wrJZZz37GU";
+        var searchTerm = "cancer";
+
+        var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + searchTerm + "&" + APIKey;
+
+        // Filter variables
+        var resultNum = 1;
+        var minYear = 2018;
+        var maxYear = 2019;
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response.response);
+            for (i = 0; i < response.response.docs.length; i++) {
+                var articleDiv = $("<div>");
+                var headlineDiv = $("<div>");
+                headlineDiv.text(response.response.docs[i].headline.main);
+                var abstractDiv = $("<div>");
+                abstractDiv.text(response.response.docs[i].abstract);
+                articleDiv.append(headlineDiv);
+                articleDiv.append(abstractDiv);
+                $("#article").append(articleDiv);
+                console.log(headlineDiv);
+            }
+        });
+
+
+    </script>
+
 </body>
+
 </html>
